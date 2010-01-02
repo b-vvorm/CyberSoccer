@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<team>
+	<name>Chelsea</name>
+	<footballers>
+		<footballer>
+			<name>Petr</name>
+			<number>1</number>
+			<speed>5</speed>
+			<technical>10</technical>
+			<fight>10</fight>
+			<power>10</power>
+		</footballer>
+		<footballer>
+			<name>John</name>
+			<number>26</number>
+			<speed>5</speed>
+			<technical>10</technical>
+			<fight>10</fight>
+			<power>10</power>
+		</footballer>
+		<footballer>
+			<name>Ashley</name>
+			<number>3</number>
+			<speed>5</speed>
+			<technical>10</technical>
+			<fight>10</fight>
+			<power>10</power>
+		</footballer>
+		<footballer>
+			<name>Michael</name>
+			<number>13</number>
+			<speed>5</speed>
+			<technical>10</technical>
+			<fight>10</fight>
+			<power>10</power>
+		</footballer>
+		<footballer>
+			<name>Didier</name>
+			<number>11</number>
+			<speed>5</speed>
+			<technical>10</technical>
+			<fight>10</fight>
+			<power>10</power>
+		</footballer>
+	</footballers>
+</team>

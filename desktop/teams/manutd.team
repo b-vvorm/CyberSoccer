@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<team>
+	<name>Manutd</name>
+	<footballers>
+		<footballer>
+			<name>Edwin</name>
+			<number>1</number>
+			<speed>5</speed>
+			<technical>10</technical>
+			<fight>10</fight>
+			<power>10</power>
+		</footballer>
+		<footballer>
+			<name>Patris</name>
+			<number>3</number>
+			<speed>5</speed>
+			<technical>10</technical>
+			<fight>10</fight>
+			<power>10</power>
+		</footballer>
+		<footballer>
+			<name>Gary</name>
+			<number>2</number>
+			<speed>5</speed>
+			<technical>10</technical>
+			<fight>10</fight>
+			<power>10</power>
+		</footballer>
+		<footballer>
+			<name>Wayn</name>
+			<number>10</number>
+			<speed>5</speed>
+			<technical>10</technical>
+			<fight>10</fight>
+			<power>10</power>
+		</footballer>
+		<footballer>
+			<name>Michael</name>
+			<number>7</number>
+			<speed>5</speed>
+			<technical>10</technical>
+			<fight>10</fight>
+			<power>10</power>
+		</footballer>
+	</footballers>
+</team>
