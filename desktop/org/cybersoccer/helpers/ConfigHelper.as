@@ -16,6 +16,8 @@ package org.cybersoccer.helpers
 		//Team properties
 		public static const FIRST_TEAM_FOREGROUND:uint = 0xFF0000;
 		public static const FIRST_TEAM_BACKGROUND:uint = 0x000000;
+		public static const SECOND_TEAM_FOREGROUND:uint = 0x0000FF;
+		public static const SECOND_TEAM_BACKGROUND:uint = 0x000000;
 		
 		//Ball properties
 		public static const BALL_COLOR:uint = 0xFFFFFF;

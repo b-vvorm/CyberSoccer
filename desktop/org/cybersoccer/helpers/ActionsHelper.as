@@ -56,6 +56,24 @@ package org.cybersoccer.helpers
 			}
 			return action;
 		}
+		
+		/**
+		 * Build action to place footballer in point during teams initialization stage.
+		 * @param footballer footballer.
+		 * @param point target point.
+		 * @return action.
+		 */		
+		public function buildPlaceFootballerAction(footballer:Footballer, point:Point):MoveFootballerToOneStep {
+			var x:int = point.x;
+			var y:int = point.y;
+			if(footballer.isFirstTeam() && x <= ConfigHelper.GAME_AREA_WIDTH/2) {
+				return new MoveFootballerToOneStep(footballer, point);
+			} else if(!footballer.isFirstTeam() && x >= ConfigHelper.GAME_AREA_WIDTH/2) {
+				return new MoveFootballerToOneStep(footballer, point);
+			} else {
+				return new MoveFootballerToOneStep(footballer, new Point(footballer.x, footballer.y));
+			}
+		}
 
 	}
 }

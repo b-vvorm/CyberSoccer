@@ -23,7 +23,11 @@ package org.cybersoccer.helpers
 		 * Build footballer.
 		**/
 		public function buildFootballer(footballer:Footballer):void {
-			GameArea.getInstance().drawFootballer(new Point(footballer.x, footballer.y));
+			if(footballer.id <= 5) {
+				GameArea.getInstance().drawFirstTeamFootballer(new Point(footballer.x, footballer.y));				
+			} else {
+				GameArea.getInstance().drawSecondTeamFootballer(new Point(footballer.x, footballer.y));
+			}
 			buildActiveZone(footballer);
 		}
 		
@@ -42,15 +46,25 @@ package org.cybersoccer.helpers
 		**/
 		public function repairCells(points:Array) {
 			var filteredPoints:Array = filterPoints(points, validateCellForRepairActiveZone);
-			GameArea.getInstance().drawActiveZone(filteredPoints);
-			
+			for each(var point:Point in filteredPoints) {
+				if(getCell(point).activeZoneFootballerId() <= 5) {
+					GameArea.getInstance().drawFirstTeamActiveZone([point]);
+				} else {
+					GameArea.getInstance().drawSecondTeamActiveZone([point]);
+				}
+			}
 			filteredPoints = filterPoints(points, validateCellForRepairBall);			
 			if(filteredPoints.length >= 1) {
 				GameArea.getInstance().drawBall(filteredPoints[0]);
 			}
-			
 			filteredPoints = filterPoints(points, validateCellForRepairFootballer);
-			GameArea.getInstance().drawFootballers(filteredPoints);
+			for each(point in filteredPoints) {	
+				if(getCell(point).footballer_id <= 5) {
+					GameArea.getInstance().drawFirstTeamFootballer(point);
+				} else {
+					GameArea.getInstance().drawSecondTeamFootballer(point);
+				}
+			}
 		}
 		
 		/**
@@ -134,7 +148,11 @@ package org.cybersoccer.helpers
 		private function buildActiveZone(footballer:Footballer):void {
 			var point:Point = new Point(footballer.x, footballer.y);
 			var points:Array = this._gameHelper.getCellNeighbors(point);
-			GameArea.getInstance().drawActiveZone(filterPoints(points, validateCellForActiveZone));
+			if(footballer.id <= 5) {
+				GameArea.getInstance().drawFirstTeamActiveZone(filterPoints(points, validateCellForActiveZone));
+			} else {
+				GameArea.getInstance().drawSecondTeamActiveZone(filterPoints(points, validateCellForActiveZone));
+			}
 		}
 		
 		/**

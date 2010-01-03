@@ -8,6 +8,11 @@ package org.cybersoccer.helpers
 		public function ParseHelper() {
 		}
 		
+		/**
+		 * Parse team from xml. 
+		 * @param teamXML team on xml format.
+		 * @return team instance.
+		 */		
 		public static function parseTeam(teamXML:XML):Team {
 			var team:Team = new Team();
 			team.name = teamXML.name;

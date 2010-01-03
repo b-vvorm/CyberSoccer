@@ -126,6 +126,10 @@
 		public function set power(power:int):void {
 			this._power = power; 
 		}
+		
+		public function isFirstTeam():Boolean {
+			return this._id <= 5;
+		}
 	
 	}
 }

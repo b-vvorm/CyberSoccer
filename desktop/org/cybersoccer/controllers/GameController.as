@@ -25,6 +25,8 @@ package org.cybersoccer.controllers
 		private const BALL:String = "BALL";
 		private const FIRST_TEAM = "manutd";
 		private const SECOND_TEAM = "chelsea";
+		private const INIT_TEAMS = "INIT TEAMS";
+		private const GAME = "GAME";
 		
 		/*Helpers*/
 		private var _viewHelper:ViewHelper;
@@ -42,6 +44,7 @@ package org.cybersoccer.controllers
 		private var _reverseStack:Array = new Array();
 		private var _currentAction:IGameAction;
 		private var _currentObject:String = FOOTBALLER;
+		private var _stage:String;
 		
 		/*For singleton*/
 		private static var _instance:GameController = null;
@@ -63,6 +66,7 @@ package org.cybersoccer.controllers
 			if(!_allowCallConstructor) {
 	            throw new Error("Use getInstance() method instead");
 	        }
+	        initTeamsStage();
 			initCellsMatrix();
 			this._viewHelper = new ViewHelper(this._matrix);
 			this._gameHelper = new GameHelper(this._matrix);
@@ -77,7 +81,7 @@ package org.cybersoccer.controllers
 		private function cellMouseClickHandler(event:CellMouseEvent):void {
 			if(event.mouseEvent.altKey) {
 				var cell:Cell = getCell(event.point);
-				trace(cell.toString());
+				trace(cell.toString());	
 			} else if(this._currentObject == FOOTBALLER){
 				cellMouseClickFootballerHandler(event);
 			} else if(this._currentObject == BALL){
@@ -89,8 +93,13 @@ package org.cybersoccer.controllers
 		 * Cell mouse click handler for footballer.
 		**/
 		private function cellMouseClickFootballerHandler(event:CellMouseEvent):void {
-			this._currentAction = this._actionsHelper.buildMoveFootballerToCellAction(this._activeFootballer, event.point);
-			this._currentAction.execute();
+			if(this._stage == this.INIT_TEAMS){
+				this._currentAction = this._actionsHelper.buildPlaceFootballerAction(this._activeFootballer, event.point);
+				this._currentAction.execute();
+			} else if(this._stage == this.GAME) {
+				this._currentAction = this._actionsHelper.buildMoveFootballerToCellAction(this._activeFootballer, event.point);
+				this._currentAction.execute();
+			}
 		}
 		
 		/**
@@ -223,7 +232,9 @@ package org.cybersoccer.controllers
 			} else {
 				_directStack = this._footballers.slice();
 				this._directStack.forEach(function(footballer:Footballer, index:int, array:Array) {
-					footballer.actualSpeed = footballer.speed;
+					if(this._stage == GAME) {
+						footballer.actualSpeed = footballer.speed;
+					}
 				});
 				changeActiveFootballer();
 				//waitButton.visible = true;
@@ -374,6 +385,18 @@ package org.cybersoccer.controllers
 			activateFootballer(this._activeFootballer);
 		}
 		
+		/** 
+		 * Start game.
+		 */		
+		private function startGame():void {
+			for each(var footballer:Footballer in this._footballers) {
+				footballer.actualSpeed = footballer.speed;
+			}
+			this._directStack = this._footballers.slice();
+			this._activeFootballer = this._directStack.pop();
+			activateFootballer(this._activeFootballer);
+		}
+		
 		/**
 		 * Place first team on the left side of game area.
 		 */		
@@ -386,18 +409,19 @@ package org.cybersoccer.controllers
 				footballer.x = x;
 				footballer.y = y;
 				footballer.id = id;
+				footballer.actualSpeed = 0;
 				y = y + 4;
 				id = id + 1;
 				this._footballers.push(footballer);
 				buildFootballer(footballer);
 			}
-			Team.loadByName(FIRST_TEAM, paleceSecondTeam);
+			Team.loadByName(FIRST_TEAM, placeSecondTeam);
 		}
 		
 		/**
 		 * Place second team on the right side of game area.
 		 */				
-		private function paleceSecondTeam(e:Event):void {
+		private function placeSecondTeam(e:Event):void {
 			var team:Team = ParseHelper.parseTeam(new XML(e.target.data));
 			var x:int = ConfigHelper.GAME_AREA_WIDTH - 3;
 			var y:int = ConfigHelper.GAME_AREA_HEIGHT - 3;
@@ -406,12 +430,28 @@ package org.cybersoccer.controllers
 				footballer.x = x;
 				footballer.y = y;
 				footballer.id = id;
+				footballer.actualSpeed = 0;
 				y = y - 4;
 				id = id + 1;
 				this._footballers.push(footballer);
 				buildFootballer(footballer);
 			}
 			initGame();
+		}
+		
+		/**
+		 * Set game stage to "init teams".
+		 */
+		public function initTeamsStage():void {
+			this._stage = INIT_TEAMS;
+		}
+		
+		/** 
+		 * Set game stage to "game".
+		 */		
+		public function game():void {
+			this._stage = GAME;
+			startGame();
 		}
 		
 	}

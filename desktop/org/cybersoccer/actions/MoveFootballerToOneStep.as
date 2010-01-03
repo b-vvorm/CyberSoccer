@@ -23,7 +23,9 @@ package org.cybersoccer.actions
 			GameController.getInstance().destroyFootballer(this._footballer);
 			this._footballer.x = this._point.x;
 			this._footballer.y = this._point.y;
-			this._footballer.actualSpeed--;
+			if(this._footballer.actualSpeed > 0) {
+				this._footballer.actualSpeed--;				
+			}
 			GameController.getInstance().activateFootballer(this._footballer);
 		}
 		

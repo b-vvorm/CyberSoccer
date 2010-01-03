@@ -59,8 +59,17 @@ package org.cybersoccer.helpers
 			drawCell(g, ConfigHelper.FIRST_TEAM_FOREGROUND, ConfigHelper.FIRST_TEAM_FOREGROUND, 0, 0.6);
 		}
 		
+		public static function drawSecondTeamActiveZone(g:Graphics):void {
+			drawEmptyCell(g);
+			drawCell(g, ConfigHelper.SECOND_TEAM_FOREGROUND, ConfigHelper.SECOND_TEAM_FOREGROUND, 0, 0.6);
+		}
+		
 		public static function drawFirstTeamFootballer(g:Graphics):void {
 			drawCell(g, ConfigHelper.FIRST_TEAM_FOREGROUND, ConfigHelper.FIRST_TEAM_BACKGROUND);
+		}
+		
+		public static function drawSecondTeamFootballer(g:Graphics):void {
+			drawCell(g, ConfigHelper.SECOND_TEAM_FOREGROUND, ConfigHelper.SECOND_TEAM_BACKGROUND);
 		}
 		
 		public static function drawFirstTeamActiveFootballer(g:Graphics):void {

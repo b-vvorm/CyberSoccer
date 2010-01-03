@@ -33,10 +33,21 @@ package org.cybersoccer.views
 			DrawHelper.drawFirstTeamActiveZone(this.graphics);
 		}
 		
+		public function toSecondTeamActiveZobe():void {
+			this.graphics.clear();
+			DrawHelper.drawSecondTeamActiveZone(this.graphics);
+		}
+		
 		public function toFirstTeamFootballer():void {
 			this.graphics.clear();
 			this.parent.setChildIndex(this, this.parent.numChildren-1);
 			DrawHelper.drawFirstTeamFootballer(this.graphics);
+		}
+		
+		public function toSecondTeamFootballer():void {
+			this.graphics.clear();
+			this.parent.setChildIndex(this, this.parent.numChildren-1);
+			DrawHelper.drawSecondTeamFootballer(this.graphics);
 		}
 		
 		public function toFirstTeamActiveFootballer():void {

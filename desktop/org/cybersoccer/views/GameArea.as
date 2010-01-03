@@ -36,18 +36,29 @@ package org.cybersoccer.views
 	    }
 		
 		/**
-		 * Draw footballer active zone.
+		 * Draw active zone for footballer from first team.
+		 * @param points active zone points.
 		 **/
-		public function drawActiveZone(points:Array) {
+		public function drawFirstTeamActiveZone(points:Array):void {
 			for(var i:int=0; i<points.length; i++) {
 				getCell(points[i]).toFirstTeamActiveZone();
+			}
+		}
+				
+		/**
+		 * Draw active zone for footballer from second team.
+		 * @param points active zone points.
+		 */		
+		public function drawSecondTeamActiveZone(points:Array):void {
+			for(var i:int=0; i<points.length; i++) {
+				getCell(points[i]).toSecondTeamActiveZobe();
 			}
 		}
 		
 		/**
 		 * Erse footballer active zone.
 		 **/
-		public function erseActiveZone(points:Array) {
+		public function erseActiveZone(points:Array):void {
 			for(var i:int=0; i<points.length; i++) {
 				getCell(points[i]).toEmptyCell();
 			}
@@ -56,7 +67,7 @@ package org.cybersoccer.views
 		/**
 		 * Erse footballer active zone.
 		 **/
-		public function erseSpeedZone(points:Array) {
+		public function erseSpeedZone(points:Array):void {
 			for(var i:int=0; i<points.length; i++) {
 				getCell(points[i]).toEmptyCell();
 			}
@@ -65,30 +76,28 @@ package org.cybersoccer.views
 		/**
 		 * Erse footballer.
 		 **/
-		public function erseFootballer(point:Point) {
+		public function erseFootballer(point:Point):void {
 			getCell(point).toEmptyCell();
 		}
 		
 		/**
-		 * Draw footballer.
+		 * Draw first team footballer.
 		 **/
-		public function drawFootballer(point:Point) {
+		public function drawFirstTeamFootballer(point:Point):void {
 			getCell(point).toFirstTeamFootballer();
 		}
 		
 		/**
-		 * Draw footballers.
-		**/
-		public function drawFootballers(points:Array) {
-			for(var i:int = 0; i<points.length; i++) {
-				drawFootballer(points[i]);
-			}
+		 * Draw second team footballer.
+		 **/
+		public function drawSecondTeamFootballer(point:Point):void {
+			getCell(point).toSecondTeamFootballer();
 		}
 		
 		/**
 		 * Draw footballer speed zone.
 		 **/
-		public function drawSpeedZone(points:Array) {
+		public function drawSpeedZone(points:Array):void {
 			for(var i:int=0; i<points.length; i++) {
 				getCell(points[i]).toSpeedCell();
 			}
