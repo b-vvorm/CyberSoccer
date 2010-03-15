@@ -1,6 +1,7 @@
 package org.cybersoccer.actions
 {
 	import org.cybersoccer.controllers.GameController;
+	import org.cybersoccer.controllers.MatchController;
 	
 	/**
 	 * Move ball to cell action.
@@ -11,9 +12,8 @@ package org.cybersoccer.actions
 		}
 		
 		override public function execute():void {
-			GameController.getInstance().switchBallFootballerHandler();
+			MatchController.getInstance().switchBallFootballerHandler();
 			super.execute();
-			GameController.getInstance().activateCurrentFootballer();
 		}
 		
 	}

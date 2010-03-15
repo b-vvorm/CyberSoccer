@@ -1,5 +1,7 @@
 package org.cybersoccer.models
 {
+	import flash.geom.Point;
+	
 	public dynamic class Cell {
 		
 		private var _x:int = 0;
@@ -17,9 +19,9 @@ package org.cybersoccer.models
 		public function toString():String {
 			return "X: " + this._x
 					+ "; Y: " + this._y
-					+ "; Footballer: " + this._footballer_id
-					+ "; ActiveZone: " + this._activeZone.toString(2);
-					+ "; Is Ball: " + this._isBall;
+					+ "; Is Ball: " + this._isBall
+					+ "; Footballers: " + this.getFootballerIds().join(", ")
+					+ "; ActiveZone: " + this._activeZone.toString(2);					
 		}
 		
 		public function get x():int {
@@ -66,10 +68,27 @@ package org.cybersoccer.models
 		}
 		
 		/**
+		 * Gets list of footballers, wich active zone include this cell. 
+		 * @return list of footballers.
+		 * 
+		 */		
+		public function getFootballerIds():Array {
+			var ids:Array = new Array();			
+			for(var i:int=0; i<10; i++) {
+				var str:String = (this._activeZone >> (i)).toString(2)
+				if(str.charAt(str.length - 1) == "1") {
+					ids.push(i + 1);
+				}
+			}
+			return ids;
+			
+		}
+		
+		/**
 		 * Return first footballer id for this active zone cell.
 		**/
 		public function activeZoneFootballerId():int {
-			for(var i:int=0; i<=10; i++) {
+			for(var i:int=0; i<10; i++) {
 				if((this._activeZone >> (i)).toString(2) == "1") {
 					return i + 1;
 				}
@@ -83,6 +102,15 @@ package org.cybersoccer.models
 		
 		public function set isBall(isBall:Boolean):void {
 			this._isBall = isBall;
+		}
+		
+		/**
+		 * Gets point for self cell. 
+		 * @return point for self cell. 
+		 * 
+		 */		
+		public function toPoint():Point {
+			return new Point(this._x, this._y);
 		}
 
 	}

@@ -7,7 +7,7 @@
 			<number>1</number>
 			<speed>5</speed>
 			<technical>10</technical>
-			<fight>10</fight>
+			<fight>20</fight>
 			<power>10</power>
 		</footballer>
 		<footballer>
@@ -15,7 +15,7 @@
 			<number>3</number>
 			<speed>5</speed>
 			<technical>10</technical>
-			<fight>10</fight>
+			<fight>20</fight>
 			<power>10</power>
 		</footballer>
 		<footballer>
@@ -23,7 +23,7 @@
 			<number>2</number>
 			<speed>5</speed>
 			<technical>10</technical>
-			<fight>10</fight>
+			<fight>20</fight>
 			<power>10</power>
 		</footballer>
 		<footballer>
@@ -31,7 +31,7 @@
 			<number>10</number>
 			<speed>5</speed>
 			<technical>10</technical>
-			<fight>10</fight>
+			<fight>20</fight>
 			<power>10</power>
 		</footballer>
 		<footballer>
@@ -39,7 +39,7 @@
 			<number>7</number>
 			<speed>5</speed>
 			<technical>10</technical>
-			<fight>10</fight>
+			<fight>20</fight>
 			<power>10</power>
 		</footballer>
 	</footballers>

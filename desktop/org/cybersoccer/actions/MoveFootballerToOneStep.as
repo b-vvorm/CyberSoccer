@@ -2,31 +2,24 @@ package org.cybersoccer.actions
 {
 	import flash.geom.Point;
 	
-	import org.cybersoccer.controllers.GameController;
-	import org.cybersoccer.helpers.ViewHelper;
-	import org.cybersoccer.models.Footballer;
+	import org.cybersoccer.controllers.MatchController;
 	
 	/**
 	 * Move footballer to one step.
 	**/ 
 	public class MoveFootballerToOneStep implements IGameAction {
 		
-		private var _footballer:Footballer;
 		private var _point:Point;
 		
-		public function MoveFootballerToOneStep(footballer:Footballer, point:Point) {
-			this._footballer = footballer;
+		public function MoveFootballerToOneStep(point:Point) {
 			this._point = point;
 		}
 
 		public function execute():void {
-			GameController.getInstance().destroyFootballer(this._footballer);
-			this._footballer.x = this._point.x;
-			this._footballer.y = this._point.y;
-			if(this._footballer.actualSpeed > 0) {
-				this._footballer.actualSpeed--;				
-			}
-			GameController.getInstance().activateFootballer(this._footballer);
+			MatchController.getInstance().moveFootballer(this._point);
+			MatchController.getInstance().moveBall(this._point);
+			MatchController.getInstance().lossBall();
+			MatchController.getInstance().robBall();
 		}
 		
 		public function stop():void {

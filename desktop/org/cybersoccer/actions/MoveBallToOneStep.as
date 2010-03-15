@@ -2,7 +2,7 @@ package org.cybersoccer.actions
 {
 	import flash.geom.Point;
 	
-	import org.cybersoccer.controllers.GameController;
+	import org.cybersoccer.controllers.MatchController;
 	
 	/**
 	 * Move ball to one step action.
@@ -16,7 +16,9 @@ package org.cybersoccer.actions
 		}
 
 		public function execute():void {
-			GameController.getInstance().moveBallToCell(this._point);
+			MatchController.getInstance().hitBall(this._point);
+			MatchController.getInstance().takeBall();
+			MatchController.getInstance().goal();
 		}
 		
 		public function stop():void {

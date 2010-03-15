@@ -13,7 +13,7 @@ package org.cybersoccer.controllers
 	import org.cybersoccer.models.Cell;
 	import org.cybersoccer.models.Footballer;
 	import org.cybersoccer.models.Team;
-	import org.cybersoccer.views.Ball;
+	import org.cybersoccer.models.Ball;
 	import org.cybersoccer.views.GameArea;
 	
 	/**
@@ -170,6 +170,21 @@ package org.cybersoccer.controllers
 		}
 		
 		/**
+		 * Move active footballer to cell. 
+		 * @param point target point.
+		 * 
+		 */		
+		public function moveActiveFootballerToCell(point:Point):void {
+			destroyFootballer(this._activeFootballer);
+			this._activeFootballer.x = point.x;
+			this._activeFootballer.y = point.y;
+			if(this._activeFootballer.actualSpeed > 0) {
+				this._activeFootballer.actualSpeed--;				
+			}
+			activateFootballer(this._activeFootballer);
+		}
+		
+		/**
 		 * Build footballer.
 		**/
 		public function buildFootballer(footballer:Footballer):void {
@@ -182,6 +197,9 @@ package org.cybersoccer.controllers
 				this._ball.x = buildPoint.x;
 				this._ball.y = buildPoint.y;
 				buildBall();
+				if(lossBall(buildPoint)) {
+					this._currentAction.stop();
+				}
 			}
 		}
 		
@@ -231,11 +249,11 @@ package org.cybersoccer.controllers
 				//waitButton.visible = false;
 			} else {
 				_directStack = this._footballers.slice();
-				this._directStack.forEach(function(footballer:Footballer, index:int, array:Array) {
-					if(this._stage == GAME) {
+				if(this._stage == GAME) {
+					this._directStack.forEach(function(footballer:Footballer, index:int, array:Array) {	
 						footballer.actualSpeed = footballer.speed;
-					}
-				});
+					});
+				}
 				changeActiveFootballer();
 				//waitButton.visible = true;
 			}
@@ -311,6 +329,28 @@ package org.cybersoccer.controllers
 				getCell(points[i]).putFootballerActiveZone(footballer.id);
 			}
 		}
+		
+		/**
+		 * Return true if active footballer loss a ball, othrwise return true. 
+		 * @param cell cell with ball. 
+		 * @return true if active footballer loss a ball, othrwise return true.
+		 * 
+		 */
+		private function lossBall(point:Point):Boolean {
+			var cell:Cell = getCell(point);
+			var conflictedFootballers:Array = cell.getFootballerIds().map(function(id:int, index:int, arr:Array) {return getFootballerById(id)});
+			if(conflictedFootballers.length < 2) {
+				return false;
+			}
+			for each(var footballer:Footballer in conflictedFootballers) {
+				if(this._activeFootballer.id != footballer.id && this._activeFootballer.technical < footballer.fight) {
+					this._activeFootballer.withBall = 0;
+					footballer.withBall = this._gameHelper.getNumberOfNeighborForPoint(cell.toPoint(), footballer.point);
+					return true;
+				}
+			}
+			return false;
+		}
 
 		/**
 		 * Return true if active footballer can take a ball, otherwice retrun false.
@@ -319,7 +359,13 @@ package org.cybersoccer.controllers
 			if(!cell.isCellInActiveZone()) {
 				return true;
 			} else {
-				//TODO: implement function to get suggestion about if can footballer take a ball. 
+				var conflictedFootballers:Array = cell.getFootballerIds().map(function(id:int, index:int, arr:Array) {return getFootballerById(id)});
+				for each(var footballer:Footballer in conflictedFootballers) {
+					if(this._activeFootballer.id != footballer.id && this._activeFootballer.fight > footballer.fight) {
+						footballer.withBall = 0;
+						return true;							
+					}
+				}
 				return false;
 			}
 		}
@@ -359,7 +405,7 @@ package org.cybersoccer.controllers
 		**/
 		private function initBall():void {
 			this._ball = new Ball();
-			this._ball.x = 5;
+			this._ball.x = 15;
 			this._ball.y = 10;
 			buildBall();
 		}
@@ -394,7 +440,7 @@ package org.cybersoccer.controllers
 			}
 			this._directStack = this._footballers.slice();
 			this._activeFootballer = this._directStack.pop();
-			activateFootballer(this._activeFootballer);
+			activateFootballer(this._activeFootballer);						
 		}
 		
 		/**
@@ -415,7 +461,7 @@ package org.cybersoccer.controllers
 				this._footballers.push(footballer);
 				buildFootballer(footballer);
 			}
-			Team.loadByName(FIRST_TEAM, placeSecondTeam);
+			Team.loadByName(SECOND_TEAM, placeSecondTeam);
 		}
 		
 		/**

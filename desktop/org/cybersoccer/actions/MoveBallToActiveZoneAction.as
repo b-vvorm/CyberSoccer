@@ -2,8 +2,7 @@ package org.cybersoccer.actions
 {
 	import flash.geom.Point;
 	
-	import org.cybersoccer.controllers.GameController;
-	import org.cybersoccer.views.Ball;
+	import org.cybersoccer.controllers.MatchController;
 	
 	/**
 	 * Move ball to footballer active zone cell.
@@ -18,7 +17,7 @@ package org.cybersoccer.actions
 		}
 
 		public function execute():void {
-			GameController.getInstance().moveBallToActiveZone(this._point);
+			MatchController.getInstance().moveBallToActiveZone(this._point);
 		}
 		
 		public function stop():void {

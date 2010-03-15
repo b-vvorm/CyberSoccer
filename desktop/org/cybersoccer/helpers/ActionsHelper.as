@@ -7,8 +7,9 @@ package org.cybersoccer.helpers
 	import org.cybersoccer.actions.MoveBallToOneStep;
 	import org.cybersoccer.actions.MoveFootballerToCellAction;
 	import org.cybersoccer.actions.MoveFootballerToOneStep;
+	import org.cybersoccer.actions.PlaceFootballerToCell;
 	import org.cybersoccer.models.Footballer;
-	import org.cybersoccer.views.Ball;
+	import org.cybersoccer.models.Ball;
 	
 	/**
 	 * Used to present methods to build any game actions.
@@ -33,7 +34,7 @@ package org.cybersoccer.helpers
 				return action;
 			}
 			for(var i:int=0; i<pathPoints.length; i++) {
-				action.addOneStepAction(new MoveFootballerToOneStep(footballer, pathPoints[i]));				
+				action.addOneStepAction(new MoveFootballerToOneStep(pathPoints[i]));				
 			}
 			return action;
 		}
@@ -50,7 +51,7 @@ package org.cybersoccer.helpers
 		**/
 		public function buildMoveBallToCell(ball:Ball, point:Point):MoveBallToCellAction {
 			var action:MoveBallToCellAction = new MoveBallToCellAction();
-			var pathPoints:Array = this._gameHelper.getBallPathToPoint(new Point(ball.x, ball.y), point);
+			var pathPoints:Array = this._gameHelper.getBallPathToPoint(ball.point, point);
 			for(var i:int=0; i < pathPoints.length; i++) {
 				action.addOneStepAction(new MoveBallToOneStep(pathPoints[i]));
 			}
@@ -63,15 +64,15 @@ package org.cybersoccer.helpers
 		 * @param point target point.
 		 * @return action.
 		 */		
-		public function buildPlaceFootballerAction(footballer:Footballer, point:Point):MoveFootballerToOneStep {
+		public function buildPlaceFootballerAction(footballer:Footballer, point:Point):PlaceFootballerToCell {
 			var x:int = point.x;
 			var y:int = point.y;
 			if(footballer.isFirstTeam() && x <= ConfigHelper.GAME_AREA_WIDTH/2) {
-				return new MoveFootballerToOneStep(footballer, point);
+				return new PlaceFootballerToCell(point);
 			} else if(!footballer.isFirstTeam() && x >= ConfigHelper.GAME_AREA_WIDTH/2) {
-				return new MoveFootballerToOneStep(footballer, point);
+				return new PlaceFootballerToCell(point);
 			} else {
-				return new MoveFootballerToOneStep(footballer, new Point(footballer.x, footballer.y));
+				return new PlaceFootballerToCell(new Point(footballer.x, footballer.y));
 			}
 		}
 

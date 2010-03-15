@@ -1,5 +1,7 @@
-package org.cybersoccer.views
+package org.cybersoccer.models
 {
+	import flash.geom.Point;
+	
 	public class Ball {
 		
 		private var _x:int;
@@ -22,6 +24,15 @@ package org.cybersoccer.views
 		
 		public function set y(y:int):void {
 			this._y = y; 
+		}
+		
+		public function get point():Point {
+			return new Point(this._x, this._y);
+		} 
+		
+		public function set point(point:Point):void {
+			this._x = point.x;
+			this._y = point.y;
 		}
 
 	}

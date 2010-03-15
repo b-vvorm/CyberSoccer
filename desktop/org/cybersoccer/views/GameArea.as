@@ -149,14 +149,14 @@ package org.cybersoccer.views
 			DrawHelper.drawGreenRectangle(this.graphics, this.width, this.height);
 			
 			//Border.
-			DrawHelper.drawHorizontalWhiteLine(this.graphics, dX*3, dY, w - dX*2);
+			DrawHelper.drawHorizontalWhiteLine(this.graphics, dX*3, dY, w - dX*4);
 			DrawHelper.drawVerticalWhiteLine(this.graphics, dX*3, dY, h);
-			DrawHelper.drawHorizontalWhiteLine(this.graphics, dX*3, h, w - dX*2);
-			DrawHelper.drawVerticalWhiteLine(this.graphics, w, dY, h);
+			DrawHelper.drawHorizontalWhiteLine(this.graphics, dX*3, h, w - dX*4);
+			DrawHelper.drawVerticalWhiteLine(this.graphics, w - dX*2, dY, h);
 			
 			//Gates.
 			DrawHelper.drawVerticalWhiteLine(this.graphics, dX*3 - 10, dY*4*5, gates_width);
-			DrawHelper.drawVerticalWhiteLine(this.graphics, w+10, dY*4*5, gates_width);
+			DrawHelper.drawVerticalWhiteLine(this.graphics, w+10 - dX*2, dY*4*5, gates_width);
 			
 			//Center.
 			DrawHelper.drawVerticalWhiteLine(this.graphics, w/2 + dX + 5, dY, h);			

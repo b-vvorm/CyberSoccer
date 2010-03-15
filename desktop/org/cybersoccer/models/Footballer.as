@@ -1,4 +1,6 @@
 ﻿package org.cybersoccer.models {
+	import flash.geom.Point;
+	
 
 	public class Footballer {
 
@@ -95,6 +97,10 @@
 			this._actualSpeed = actualSpeed;
 		}
 		
+		public function decreaseActualSpeed():void {
+			this._actualSpeed --;
+		}
+		
 		public function get technical():int {
 			return this._technical;
 		}
@@ -129,6 +135,20 @@
 		
 		public function isFirstTeam():Boolean {
 			return this._id <= 5;
+		}
+		
+		/**
+		 * Gets point for self footballer. 
+		 * @return point for self footballer. 
+		 * 
+		 */		
+		public function get point():Point {
+			return new Point(this._x, this._y);
+		}
+		
+		public function set point(point:Point):void {
+			this._x = point.x;
+			this._y = point.y;
 		}
 	
 	}
